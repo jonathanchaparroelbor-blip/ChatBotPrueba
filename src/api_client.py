@@ -1,5 +1,25 @@
 import requests
 from loguru import logger
+import sys
+import os
+
+# Crear carpeta de logs si no existe
+os.makedirs("logs", exist_ok=True)
+
+logger.remove()
+
+# Logs en consola
+logger.add(sys.stdout, level="INFO")
+
+# Logs en archivo
+logger.add(
+    "logs/clima.log",
+    rotation="1 MB",
+    retention="7 days",
+    level="INFO",
+    format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
+)
+
 
 API_URL = "https://api.open-meteo.com/v1/forecast"
 PARAMS = {
